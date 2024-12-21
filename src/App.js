@@ -3,7 +3,7 @@ import Home from './components/Home';
 
 function App() {
   return (
-    <div className='font-extrabold'>
+    <div>
       <Home/>
     </div>
   );
