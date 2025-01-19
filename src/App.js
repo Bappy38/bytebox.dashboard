@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
 import FileExplorer from './components/FileExplorer';
+import { Provider } from 'react-redux';
+import appStore from './store/appStore';
 
 const appRouter = createBrowserRouter([
   {
@@ -9,7 +11,11 @@ const appRouter = createBrowserRouter([
     element: <Home/>
   },
   {
-    path: '/drive',
+    path: '/my-drive',
+    element: <FileExplorer/>
+  },
+  {
+    path: '/shared-drive',
     element: <FileExplorer/>
   }
 ]);
@@ -17,7 +23,9 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <div>
-      <RouterProvider router={appRouter}/>
+      <Provider store={appStore}>
+        <RouterProvider router={appRouter}/>
+      </Provider>
     </div>
   );
 }
