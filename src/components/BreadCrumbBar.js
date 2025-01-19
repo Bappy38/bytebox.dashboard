@@ -1,9 +1,38 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeBreadcrumbsAfter } from "../store/breadCrumbSlice";
+import React from "react";
 
 
 const BreadCrumbBar = () => {
+
+    const breadcrumbs = useSelector((state) => state.breadcrumb);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleBreadcrumbClick = (breadcrumb) => {
+        dispatch(removeBreadcrumbsAfter(breadcrumb));
+        navigate(breadcrumb.path);
+    }
+
+    console.log(breadcrumbs);
+
+    if (!breadcrumbs) {
+        return (<></>);
+    }
+
     return (
-        <div>
-            BreadCrumbBar
+        <div className="flex items-center space-x-2">
+            {breadcrumbs.map((breadcrumb, index) => (
+                <React.Fragment key={breadcrumb.id}>
+                    <span
+                        className="cursor-pointer text-blue-600 hover:underline"
+                        onClick={() => handleBreadcrumbClick(breadcrumb)}
+                    >
+                        {breadcrumb.label}
+                    </span>
+                </React.Fragment>
+            ))}
         </div>
     );
 }
