@@ -22,7 +22,7 @@ const FolderContainer = () => {
     ];
 
     return (
-        <div className="py-3">
+        <div className="">
             <h1 className="font-semibold">Folders</h1>
             <div className="flex pt-2">
                 {folders.map(folder => (

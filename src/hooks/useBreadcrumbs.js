@@ -20,7 +20,7 @@ const useBreadcrumbs = (currentPath) => {
                 const initialBreadcrumb = {
                     id: currentPath === '/my-drive'? 'my-drive' : 'shared-drive',
                     label: currentPath === '/my-drive'? 'My Drive' : 'Shared Drive',
-                    path: currentPath === '/my-drive'? 'my-drive' : 'shared-drive'
+                    path: currentPath === '/my-drive'? '/my-drive' : '/shared-drive'
                 };
 
                 // const response = await axios.get('/api/breadcrumbs', {

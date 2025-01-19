@@ -12,10 +12,15 @@ const FileExplorer = () => {
     console.log(location);
 
     return (
-        <div className="p-6">
-            <BreadCrumbBar/>
-            <FolderContainer/>
-            <FileContainer/>
+        <div>
+            <div className="pt-6 px-4">
+                <BreadCrumbBar/>
+            </div>
+
+            <div className="p-6">
+                <FolderContainer/>
+                <FileContainer/>
+            </div>
         </div>
     );
 };
