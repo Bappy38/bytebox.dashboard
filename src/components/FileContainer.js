@@ -27,7 +27,7 @@ const FileContainer = () => {
     ];
     
     return (
-        <div className="p-2">
+        <div className="py-3">
             <h1 className="font-semibold">Files</h1>
             <div className="flex pt-2">
                 {files.map(file => (
