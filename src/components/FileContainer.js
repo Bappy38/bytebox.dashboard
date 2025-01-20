@@ -1,30 +1,7 @@
 import FileCard from "./FileCard";
 
 
-const FileContainer = () => {
-
-    const files = [
-        {
-            fileId: "abc123",
-            fileName: "Academic Certificate",
-            thumbnailUrl: ''
-        },
-        {
-            fileId: "abc124",
-            fileName: "Book I read",
-            thumbnailUrl: ''
-        },
-        {
-            fileId: "abc125",
-            fileName: "Credentials",
-            thumbnailUrl: ''
-        },
-        {
-            fileId: "abc126",
-            fileName: "Family",
-            thumbnailUrl: ''
-        }
-    ];
+const FileContainer = ({ files }) => {
     
     return (
         <div className="py-3">

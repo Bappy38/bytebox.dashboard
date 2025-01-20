@@ -15,8 +15,6 @@ const BreadCrumbBar = () => {
         navigate(breadcrumb.path);
     }
 
-    console.log(breadcrumbs);
-
     if (!breadcrumbs) {
         return (<></>);
     }
