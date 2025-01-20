@@ -15,7 +15,15 @@ const appRouter = createBrowserRouter([
     element: <FileExplorer/>
   },
   {
+    path: '/my-drive/folders/:folderId',
+    element: <FileExplorer/>
+  },
+  {
     path: '/shared-drive',
+    element: <FileExplorer/>
+  },
+  {
+    path: '/shared-drive/folders/:folderId',
     element: <FileExplorer/>
   }
 ]);
