@@ -2,6 +2,10 @@ import FileCard from "./FileCard";
 
 
 const FileContainer = ({ files }) => {
+
+    if (!files || files.length === 0) {
+        return (<></>)
+    }
     
     return (
         <div className="py-3">

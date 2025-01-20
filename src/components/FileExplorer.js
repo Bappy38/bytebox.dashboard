@@ -3,7 +3,7 @@ import BreadCrumbBar from "./BreadCrumbBar";
 import FileContainer from "./FileContainer";
 import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
-import useMyDrive from "../hooks/useDrive";
+import useDrive from "../hooks/useDrive";
 
 
 const FileExplorer = () => {
@@ -11,7 +11,7 @@ const FileExplorer = () => {
     const location = useLocation();
     useBreadcrumbs(location.pathname);
     
-    const data = useMyDrive();
+    const data = useDrive(location.pathname);
 
     if (!data) {
         return (

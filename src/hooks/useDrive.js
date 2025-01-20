@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ENDPOINTS } from "../constants/endpoints";
 
-const useDrive = () => {
+const useDrive = (pathname) => {
     
     const [ data, setData ] = useState();
     const { folderId } = useParams();
-    const { pathname } = useLocation();
 
     useEffect(() => {
         fetchDrives();
-    }, []);
+    }, [pathname]);
 
     const fetchDrives = async() => {
 
