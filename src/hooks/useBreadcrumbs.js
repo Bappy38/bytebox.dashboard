@@ -17,6 +17,7 @@ const useBreadcrumbs = (currentPath) => {
 
     const getBreadcrumbs = async() => {
 
+        // TODO:: Ensure we aren't calling API to fetch breadcrumbs, if its already exist. We can check if breadcrumbs for a folder already exist by checking the folderId.
         // if (breadcrumbs && breadcrumbs.length > 0) {
         //     return;
         // }
