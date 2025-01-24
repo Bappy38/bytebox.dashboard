@@ -3,13 +3,21 @@ import BreadCrumbBar from "./BreadCrumbBar";
 import FileContainer from "./FileContainer";
 import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
+import useDrive from "../hooks/useDrive";
 
 
 const FileExplorer = () => {
 
     const location = useLocation();
     useBreadcrumbs(location.pathname);
-    console.log(location);
+    
+    const data = useDrive(location.pathname);
+
+    if (!data) {
+        return (
+            <h1 className="font-bold text-xl">Fetching Drives...</h1>
+        )
+    }
 
     return (
         <div>
@@ -18,8 +26,8 @@ const FileExplorer = () => {
             </div>
 
             <div className="p-6">
-                <FolderContainer/>
-                <FileContainer/>
+                <FolderContainer folders = {data.subFolders}/>
+                <FileContainer files = {data.files}/>
             </div>
         </div>
     );
