@@ -24,11 +24,15 @@ const BreadCrumbBar = () => {
             {breadcrumbs.map((breadcrumb, index) => (
                 <React.Fragment key={breadcrumb.id}>
                     <span
-                        className="cursor-pointer font-bold p-2 hover:bg-slate-300 rounded-full"
+                        className="cursor-pointer text-blue-600 font-medium px-3 py-1 rounded-md 
+                        hover:bg-blue-100 hover:text-blue-800 transition duration-200"
                         onClick={() => handleBreadcrumbClick(breadcrumb)}
                     >
                         {breadcrumb.label}
                     </span>
+                    {index < breadcrumbs.length - 1 && (
+                        <span className="text-gray-400">/</span>
+                    )}
                 </React.Fragment>
             ))}
         </div>
