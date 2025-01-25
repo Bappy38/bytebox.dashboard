@@ -1,17 +1,23 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import BreadCrumbBar from "./BreadCrumbBar";
 import FileContainer from "./FileContainer";
 import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
+import FileUploader from "./FileUploader";
 
 
 const FileExplorer = () => {
-
     const location = useLocation();
     useBreadcrumbs(location.pathname);
     
     const data = useDrive(location.pathname);
+    const { folderId } = useParams();
+
+    const handleFileUploadComplete = (newFile) => {
+
+        data.files = [...data.files, newFile];
+    };
 
     if (!data) {
         return (
@@ -21,8 +27,9 @@ const FileExplorer = () => {
 
     return (
         <div>
-            <div className="pt-6 px-4">
-                <BreadCrumbBar/>
+            <div className="pt-6 px-4 flex items-center justify-between">
+                <BreadCrumbBar />
+                <FileUploader folderId={folderId} onUploadComplete={handleFileUploadComplete} />
             </div>
 
             <div className="p-6">
