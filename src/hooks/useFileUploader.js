@@ -18,7 +18,7 @@ export const useFileUploader = () => {
 
         try {
             setProgress(0);
-            setUploadStatus(null);
+            setUploadStatus('inprogress');
 
             const initiateUploadResponse = await axios.post(
                 ENDPOINTS.INITIATE_UPLOAD,
