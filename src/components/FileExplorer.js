@@ -26,6 +26,9 @@ const FileExplorer = () => {
 
     const handleFileUploadComplete = (newFile) => {
 
+        if (!newFile) {
+            return;
+        }
         setFiles((prevFiles) => [...prevFiles, newFile]);
     };
 
