@@ -4,14 +4,33 @@ import FileContainer from "./FileContainer";
 import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
+import FileUploader from "./FileUploader";
+import { useEffect, useState } from "react";
 
 
 const FileExplorer = () => {
-
     const location = useLocation();
     useBreadcrumbs(location.pathname);
     
     const data = useDrive(location.pathname);
+
+    const [files, setFiles] = useState([]);
+    const [subFolders, setSubFolders] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            setFiles(data.files);
+            setSubFolders(data.subFolders);
+        }
+    }, [data]);
+
+    const handleFileUploadComplete = (newFile) => {
+
+        if (!newFile) {
+            return;
+        }
+        setFiles((prevFiles) => [...prevFiles, newFile]);
+    };
 
     if (!data) {
         return (
@@ -21,13 +40,14 @@ const FileExplorer = () => {
 
     return (
         <div>
-            <div className="pt-6 px-4">
-                <BreadCrumbBar/>
+            <div className="pt-6 px-4 flex items-center justify-between">
+                <BreadCrumbBar />
+                <FileUploader folderId={data.folderId} onUploadComplete={handleFileUploadComplete} />
             </div>
 
             <div className="p-6">
-                <FolderContainer folders = {data.subFolders}/>
-                <FileContainer files = {data.files}/>
+                <FolderContainer folders = {subFolders}/>
+                <FileContainer files = {files}/>
             </div>
         </div>
     );
