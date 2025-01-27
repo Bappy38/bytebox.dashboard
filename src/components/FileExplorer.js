@@ -1,10 +1,11 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import BreadCrumbBar from "./BreadCrumbBar";
 import FileContainer from "./FileContainer";
 import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
 import FileUploader from "./FileUploader";
+import { useEffect, useState } from "react";
 
 
 const FileExplorer = () => {
@@ -12,11 +13,20 @@ const FileExplorer = () => {
     useBreadcrumbs(location.pathname);
     
     const data = useDrive(location.pathname);
-    const { folderId } = useParams();
+
+    const [files, setFiles] = useState([]);
+    const [subFolders, setSubFolders] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            setFiles(data.files);
+            setSubFolders(data.subFolders);
+        }
+    }, [data]);
 
     const handleFileUploadComplete = (newFile) => {
 
-        data.files = [...data.files, newFile];
+        setFiles((prevFiles) => [...prevFiles, newFile]);
     };
 
     if (!data) {
@@ -29,12 +39,12 @@ const FileExplorer = () => {
         <div>
             <div className="pt-6 px-4 flex items-center justify-between">
                 <BreadCrumbBar />
-                <FileUploader folderId={folderId} onUploadComplete={handleFileUploadComplete} />
+                <FileUploader folderId={data.folderId} onUploadComplete={handleFileUploadComplete} />
             </div>
 
             <div className="p-6">
-                <FolderContainer folders = {data.subFolders}/>
-                <FileContainer files = {data.files}/>
+                <FolderContainer folders = {subFolders}/>
+                <FileContainer files = {files}/>
             </div>
         </div>
     );

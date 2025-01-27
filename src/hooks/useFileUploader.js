@@ -64,7 +64,7 @@ export const useFileUploader = () => {
                 setProgress(Math.round((partNumber / totalChunks) * 100));
             }
 
-            await axios.post(ENDPOINTS.COMPLETE_UPLOAD, {
+            const completeUploadResponse = await axios.post(ENDPOINTS.COMPLETE_UPLOAD, {
                 fileId,
                 FileName: file.name,
                 FileSizeInMb: (file.size / (1024 * 1024)).toFixed(3),
@@ -75,6 +75,7 @@ export const useFileUploader = () => {
             });
 
             setUploadStatus("success");
+            return completeUploadResponse.data;
         } catch (error) {
             console.error("Error uploading file: ", error);
             setUploadStatus("error");
