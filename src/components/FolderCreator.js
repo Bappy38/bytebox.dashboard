@@ -1,7 +1,7 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import axios from "axios";
 import { useState } from "react";
 import { ENDPOINTS } from "../constants/endpoints";
+import fileStoreApi from "../interceptors/errorHandlingInterceptor";
 
 const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
 
@@ -14,22 +14,29 @@ const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
         return;
     }
 
-    const createFolderResponse = await axios.post(
+    try {
+      const createFolderResponse = await fileStoreApi.post(
         ENDPOINTS.CREATE_FOLDER,
         {
             ParentFolderId: parentFolderId,
             FolderName: folderName
         }
-    );
-    const createdFolderId = createFolderResponse.data;
-    const createdFolder = {
-        folderId: createdFolderId,
-        folderName: folderName
-    };
+      );
+      const createdFolderId = createFolderResponse.data;
+      const createdFolder = {
+          folderId: createdFolderId,
+          folderName: folderName
+      };
 
-    onCreateComplete(createdFolder);
-    setFolderName("");
-    setIsOpen(false);
+      onCreateComplete(createdFolder);
+    }
+    catch (error) {
+      console.error("Error occurred while creating folder: ", error);
+    }
+    finally {
+      setFolderName("");
+      setIsOpen(false);
+    }
   };
 
   return (
