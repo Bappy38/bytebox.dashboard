@@ -32,7 +32,7 @@ const FileUploader = ({ folderId, onUploadComplete }) => {
             />
 
             <button
-                className="bg-gray-400 text-white py-2 px-4 rounded-lg hover:bg-gray-500"
+                className="bg-gray-200 py-2 px-2 rounded-r-lg text-gray-700 hover:bg-gray-300"
                 onClick={handleFileUpload}
             >
                 📄 File Upload

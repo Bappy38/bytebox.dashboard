@@ -6,6 +6,7 @@ import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
 import FileUploader from "./FileUploader";
 import { useEffect, useState } from "react";
+import FolderCreator from "./FolderCreator";
 
 
 const FileExplorer = () => {
@@ -23,6 +24,14 @@ const FileExplorer = () => {
             setSubFolders(data.subFolders);
         }
     }, [data]);
+
+    const handleFolderCreated = (newFolder) => {
+        
+        if (!newFolder) {
+            return;
+        }
+        setSubFolders((prevFolders) => [...prevFolders, newFolder]);
+    }
 
     const handleFileUploadComplete = (newFile) => {
 
@@ -42,7 +51,11 @@ const FileExplorer = () => {
         <div>
             <div className="pt-6 px-4 flex items-center justify-between">
                 <BreadCrumbBar />
-                <FileUploader folderId={data.folderId} onUploadComplete={handleFileUploadComplete} />
+
+                <div className="flex space-x-0">
+                    <FolderCreator parentFolderId={data.folderId} onCreateComplete={handleFolderCreated} />
+                    <FileUploader folderId={data.folderId} onUploadComplete={handleFileUploadComplete} />
+                </div>
             </div>
 
             <div className="p-6">
