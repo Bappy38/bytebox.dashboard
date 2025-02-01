@@ -8,5 +8,6 @@ export const ENDPOINTS = {
     INITIATE_UPLOAD: FILESTORE_BASE_URL + '/Files/Initiate-Multipart-Upload',
     GENERATE_UPLOAD_PRESIGNED_URL: (FileId) => `${FILESTORE_BASE_URL}/Files/${FileId}/Generate-Part-Presigned-Url`,
     COMPLETE_UPLOAD: FILESTORE_BASE_URL + '/Files/Complete-Multipart-Upload',
-    CREATE_FOLDER: FILESTORE_BASE_URL + '/Folders'
+    CREATE_FOLDER: FILESTORE_BASE_URL + '/Folders',
+    DOWNLOAD_FILE: (FileId) => `${FILESTORE_BASE_URL}/Files/${FileId}`
 }
