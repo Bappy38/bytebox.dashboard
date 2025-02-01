@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { ENDPOINTS } from "../constants/endpoints";
 
 
-const CHUNK_SIZE = 2 * 1024 * 1024;
+const CHUNK_SIZE = 5 * 1024 * 1024;
 
 export const useFileUploader = () => {
 
