@@ -46,7 +46,8 @@ export const useFileUploader = () => {
                     {
                         fileId,
                         uploadId,
-                        PartNumber: partNumber
+                        PartNumber: partNumber,
+                        ContentType: file.type
                     }
                 );
                 const { preSignedUrl } = presignedGenerateResponse.data;
