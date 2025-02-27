@@ -5,32 +5,26 @@ import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
 import FileUploader from "./FileUploader";
-import { useEffect, useState } from "react";
 import FolderCreator from "./FolderCreator";
+import { useDispatch, useSelector } from "react-redux";
+import { addFile, addFolder } from "../store/fileExplorerSlice";
 
 
 const FileExplorer = () => {
     const location = useLocation();
+    const dispatch = useDispatch();
+
     useBreadcrumbs(location.pathname);
-    
-    const data = useDrive(location.pathname);
+    useDrive(location.pathname);
 
-    const [files, setFiles] = useState([]);
-    const [subFolders, setSubFolders] = useState([]);
-
-    useEffect(() => {
-        if (data) {
-            setFiles(data.files);
-            setSubFolders(data.subFolders);
-        }
-    }, [data]);
+    const data = useSelector((state) => state.fileExplorer);
 
     const handleFolderCreated = (newFolder) => {
         
         if (!newFolder) {
             return;
         }
-        setSubFolders((prevFolders) => [...prevFolders, newFolder]);
+        dispatch(addFolder(newFolder));
     }
 
     const handleFileUploadComplete = (newFile) => {
@@ -38,7 +32,7 @@ const FileExplorer = () => {
         if (!newFile) {
             return;
         }
-        setFiles((prevFiles) => [...prevFiles, newFile]);
+        dispatch(addFile(newFile));
     };
 
     if (!data) {
@@ -59,8 +53,8 @@ const FileExplorer = () => {
             </div>
 
             <div className="p-6">
-                <FolderContainer folders = {subFolders}/>
-                <FileContainer files = {files}/>
+                <FolderContainer folders = {data.subFolders}/>
+                <FileContainer files = {data.files}/>
             </div>
         </div>
     );

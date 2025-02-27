@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import breadcrumbReducer from './breadCrumbSlice';
+import fileExplorerReducer from './fileExplorerSlice';
 
 const appStore = configureStore({
     reducer: {
-        breadcrumb: breadcrumbReducer
+        breadcrumb: breadcrumbReducer,
+        fileExplorer: fileExplorerReducer
     }
 });
 
