@@ -2,12 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEllipsisVertical, faTrash } from "@fortawesome/free-solid-svg-icons";
 import useDeleteFile from "../hooks/useDeleteFile";
+import useDownloadFile from "../hooks/useDownloadFile";
 
-const FileCardActions = ({ fileId }) => {
+const FileCardActions = ({ fileId, fileName }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
     const deleteFile = useDeleteFile();
+    const downloadFile = useDownloadFile();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -26,6 +28,7 @@ const FileCardActions = ({ fileId }) => {
     }, [isDropdownOpen]);
 
     const handleDownload = () => {
+        downloadFile(fileId, fileName);
         setIsDropdownOpen(false);
     };
 
@@ -38,7 +41,7 @@ const FileCardActions = ({ fileId }) => {
         <div className="relative">
             
             <div
-                className="cursor-pointer"
+                className="w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
                 onClick={(e) => {
                     e.stopPropagation();
                     setIsDropdownOpen(!isDropdownOpen);
