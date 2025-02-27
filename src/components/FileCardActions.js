@@ -53,7 +53,7 @@ const FileCardActions = ({ fileId, fileName }) => {
             {isDropdownOpen && (
                 <div
                     ref={dropdownRef}
-                    className="absolute right-0 top-8 w-max bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                    className="absolute right-0 top-8 w-max bg-white border border-gray-200 rounded-lg shadow-lg"
                 >
                     <ul className="py-1">
                         <li
