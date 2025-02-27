@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEllipsisVertical, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { removeFile } from "../store/fileExplorerSlice";
 
 const FileCardActions = ({ fileId }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -31,6 +34,7 @@ const FileCardActions = ({ fileId }) => {
     const handleDelete = () => {
         console.log("Delete File", fileId);
         // Implement delete logic here
+        dispatch(removeFile(fileId));
         setIsDropdownOpen(false); // Close dropdown after action
     };
 

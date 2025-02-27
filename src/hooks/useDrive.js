@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ENDPOINTS } from "../constants/endpoints";
+import { useDispatch } from "react-redux";
+import { initializeFileExplorer } from "../store/fileExplorerSlice";
 
 const useDrive = (pathname) => {
     
-    const [ data, setData ] = useState();
     const { folderId } = useParams();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetchDrives();
-    }, [pathname]);
+    }, [pathname, dispatch]);
 
     const fetchDrives = async() => {
 
         const endpoint = getEndpoint();
         const response = await fetch(endpoint);
         const json = await response.json();
-        setData(json);
+        dispatch(initializeFileExplorer(json));
     }
 
     const getEndpoint = () => {
@@ -30,8 +32,6 @@ const useDrive = (pathname) => {
                 return ENDPOINTS.GET_FOLDER(folderId);
         }
     }
-
-    return data;
 }
 
 export default useDrive;
