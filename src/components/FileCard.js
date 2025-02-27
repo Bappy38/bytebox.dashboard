@@ -19,7 +19,7 @@ const FileCard = ({ file }) => {
                 
                 <div className="h-[10%] flex justify-between items-center">
                     <div className="text-ellipsis overflow-hidden whitespace-nowrap">📄 {fileName}</div>
-                    <FileCardActions fileId={fileId} />
+                    <FileCardActions fileId={fileId} fileName={fileName} />
                 </div>
 
                 <div
