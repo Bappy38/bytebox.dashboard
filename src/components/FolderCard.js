@@ -1,18 +1,17 @@
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FolderCardActions from './FolderCardActions';
 
-const FolderCard = ({folder}) => {
-
-    const {folderId, folderName} = folder;
+const FolderCard = ({ folder }) => {
+    const { folderId, folderName } = folder;
 
     return (
-        <div className="flex bg-slate-200 w-[230px] px-3 py-2 rounded-md hover:bg-slate-300 cursor-default">
-            <div className='w-11/12'>
-                📁  {folderName}
+        <div className="flex items-center justify-between bg-slate-200 w-[230px] px-3 py-2 rounded-md hover:bg-slate-300 cursor-default">
+            <div className="flex items-center gap-2">
+                <span>📁</span>
+                <span>{folderName}</span>
             </div>
 
-            <div className='w-1/12 px-4 flex items-center justify-center hover:bg-slate-400 rounded-full'>
-                <FontAwesomeIcon icon={faEllipsisVertical} />
+            <div className="flex items-center gap-2">
+                <FolderCardActions folderId={folderId} folderName={folderName} />
             </div>
         </div>
     );
