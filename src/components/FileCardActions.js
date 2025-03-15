@@ -13,7 +13,11 @@ const FileCardActions = ({ fileId, fileName }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current
+                && !dropdownRef.current.contains(event.target)
+                && !event.target.closest(".action-button")
+            ) {
                 setIsDropdownOpen(false);
             }
         };
@@ -41,7 +45,7 @@ const FileCardActions = ({ fileId, fileName }) => {
         <div className="relative">
             
             <div
-                className="w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
+                className="action-button w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
                 onClick={(e) => {
                     e.stopPropagation();
                     setIsDropdownOpen(!isDropdownOpen);

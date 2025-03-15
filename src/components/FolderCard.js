@@ -5,9 +5,9 @@ const FolderCard = ({ folder }) => {
 
     return (
         <div className="flex items-center justify-between bg-slate-200 w-[230px] px-3 py-2 rounded-md hover:bg-slate-300 cursor-default">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 overflow-hidden">
                 <span>📁</span>
-                <span>{folderName}</span>
+                <span className="truncate">{folderName}</span>
             </div>
 
             <div className="flex items-center gap-2">

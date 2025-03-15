@@ -2,14 +2,17 @@ import { faEllipsisVertical, faPencil, faTrash } from "@fortawesome/free-solid-s
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
-
 const FolderCardActions = ({ folderId, folderName }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current
+                && !dropdownRef.current.contains(event.target)
+                && !event.target.closest(".action-button")
+            ) {
                 setIsDropdownOpen(false);
             }
         };
@@ -20,27 +23,26 @@ const FolderCardActions = ({ folderId, folderName }) => {
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-        }
+        };
     }, [isDropdownOpen]);
 
     const handleRenameFolder = () => {
         // TODO:: Implement business logic to handleRenameFolder
         setIsDropdownOpen(false);
-    }
+    };
 
     const handleDeleteFolder = () => {
         // TODO:: Implement business logic to handleDeleteFolder
         setIsDropdownOpen(false);
-    }
+    };
 
     return (
         <div className="relative z-50">
-            
             <div
-                className="w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
+                className="action-button w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
                 onClick={(e) => {
                     e.stopPropagation();
-                    setIsDropdownOpen((prev) => !prev);
+                    setIsDropdownOpen(!isDropdownOpen);
                 }}
             >
                 <FontAwesomeIcon icon={faEllipsisVertical} />
