@@ -1,10 +1,13 @@
 import { faEllipsisVertical, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import useDeleteFolder from "../hooks/useDeleteFolder";
 
 const FolderCardActions = ({ folderId, folderName }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+
+    const deleteFolder = useDeleteFolder();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -32,12 +35,12 @@ const FolderCardActions = ({ folderId, folderName }) => {
     };
 
     const handleDeleteFolder = () => {
-        // TODO:: Implement business logic to handleDeleteFolder
+        deleteFolder(folderId);
         setIsDropdownOpen(false);
     };
 
     return (
-        <div className="relative z-50">
+        <div className="relative">
             <div
                 className="action-button w-5 h-5 px-2 flex items-center justify-center hover:bg-slate-400 rounded-full"
                 onClick={(e) => {
@@ -51,7 +54,7 @@ const FolderCardActions = ({ folderId, folderName }) => {
             {isDropdownOpen && (
                 <div
                     ref={dropdownRef}
-                    className="absolute right-0 top-8 w-max bg-white border border-gray-200 rounded-lg shadow-lg"
+                    className="z-10 absolute right-0 top-8 w-max bg-white border border-gray-200 rounded-lg shadow-lg"
                 >
                     <ul className="py-1">
                         <li

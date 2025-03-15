@@ -7,6 +7,7 @@ export const ENDPOINTS = {
 
     GET_FOLDER: (FolderId) => `${FILESTORE_BASE_URL}/Folders/${FolderId}`,
     CREATE_FOLDER: FILESTORE_BASE_URL + '/Folders',
+    DELETE_FOLDER: (FolderId) => `${FILESTORE_BASE_URL}/Folders/${FolderId}`,
     
     INITIATE_UPLOAD: FILESTORE_BASE_URL + '/Files/Initiate-Multipart-Upload',
     GENERATE_UPLOAD_PRESIGNED_URL: (FileId) => `${FILESTORE_BASE_URL}/Files/${FileId}/Generate-Part-Presigned-Url`,

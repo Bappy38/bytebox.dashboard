@@ -48,7 +48,7 @@ const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
         📁 Create Folder
       </button>
 
-        <Dialog as="div" className="relative z-10" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Dialog as="div" className="relative z-50" open={isOpen} onClose={() => setIsOpen(false)}>
 
           <div className="fixed inset-0 bg-black bg-opacity-50" aria-hidden="true"></div>
 
