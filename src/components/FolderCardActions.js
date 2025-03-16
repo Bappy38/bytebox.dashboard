@@ -2,19 +2,25 @@ import { faEllipsisVertical, faPencil, faTrash } from "@fortawesome/free-solid-s
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import useDeleteFolder from "../hooks/useDeleteFolder";
+import RenameFolderDialog from "./RenameFolderDialog";
+import { useDispatch } from "react-redux";
+import { renameFolder } from "../store/fileExplorerSlice";
 
 const FolderCardActions = ({ folderId, folderName }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
+
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
 
     const deleteFolder = useDeleteFolder();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
-                dropdownRef.current
-                && !dropdownRef.current.contains(event.target)
-                && !event.target.closest(".action-button")
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target) &&
+                !event.target.closest(".action-button")
             ) {
                 setIsDropdownOpen(false);
             }
@@ -30,13 +36,18 @@ const FolderCardActions = ({ folderId, folderName }) => {
     }, [isDropdownOpen]);
 
     const handleRenameFolder = () => {
-        // TODO:: Implement business logic to handleRenameFolder
         setIsDropdownOpen(false);
+        setIsRenameDialogOpen(true);
     };
 
     const handleDeleteFolder = () => {
         deleteFolder(folderId);
         setIsDropdownOpen(false);
+    };
+
+    const handleRenameComplete = (renamedFolder) => {
+        setIsRenameDialogOpen(false);
+        dispatch(renameFolder(renamedFolder));
     };
 
     return (
@@ -74,6 +85,14 @@ const FolderCardActions = ({ folderId, folderName }) => {
                     </ul>
                 </div>
             )}
+
+            <RenameFolderDialog
+                isOpen={isRenameDialogOpen}
+                onClose={() => setIsRenameDialogOpen(false)}
+                folderId={folderId}
+                folderName={folderName}
+                onComplete={handleRenameComplete}
+            />
         </div>
     );
 };

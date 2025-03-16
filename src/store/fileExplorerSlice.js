@@ -26,6 +26,16 @@ const fileExplorerSlice = createSlice({
         removeFolder: (state, action) => {
             state.subFolders = state.subFolders.filter((folder) => folder.folderId !== action.payload);
         },
+        renameFolder: (state, action) => {
+            const { folderId, folderName } = action.payload;
+            const folderIndex = state.subFolders.findIndex((folder) => folder.folderId === folderId);
+
+            if (folderIndex === -1) {
+                return;
+            }
+
+            state.subFolders = state.subFolders.map((folder, index) => index === folderIndex ? { ...folder, folderName} : folder);
+        },
         resetFileExplorer: () => {
             return {
                 folderId: '',
@@ -38,6 +48,6 @@ const fileExplorerSlice = createSlice({
     }
 });
 
-export const { initializeFileExplorer, addFile, removeFile, addFolder, removeFolder, resetFileExplorer } = fileExplorerSlice.actions;
+export const { initializeFileExplorer, addFile, removeFile, addFolder, removeFolder, renameFolder, resetFileExplorer } = fileExplorerSlice.actions;
 
 export default fileExplorerSlice.reducer;

@@ -5,9 +5,9 @@ import FolderContainer from "./FolderContainer";
 import useBreadcrumbs from "../hooks/useBreadcrumbs";
 import useDrive from "../hooks/useDrive";
 import FileUploader from "./FileUploader";
-import FolderCreator from "./FolderCreator";
 import { useDispatch, useSelector } from "react-redux";
 import { addFile, addFolder } from "../store/fileExplorerSlice";
+import CreateFolderDialog from "./CreateFolderDialog";
 
 
 const FileExplorer = () => {
@@ -47,7 +47,7 @@ const FileExplorer = () => {
                 <BreadCrumbBar />
 
                 <div className="flex space-x-0">
-                    <FolderCreator parentFolderId={data.folderId} onCreateComplete={handleFolderCreated} />
+                    <CreateFolderDialog parentFolderId={data.folderId} onCreateComplete={handleFolderCreated} />
                     <FileUploader folderId={data.folderId} onUploadComplete={handleFileUploadComplete} />
                 </div>
             </div>

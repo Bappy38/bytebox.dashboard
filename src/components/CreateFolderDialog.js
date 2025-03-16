@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ENDPOINTS } from "../constants/endpoints";
 import fileStoreApi from "../interceptors/errorHandlingInterceptor";
 
-const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
+const CreateFolderDialog = ({ parentFolderId, onCreateComplete }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
@@ -74,7 +74,7 @@ const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
 
                   <div className="mt-4 flex justify-end space-x-2">
                     <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                      className={`bg-blue-500 text-white px-4 py-2 rounded-lg ${folderName ? "hover:bg-blue-600" : "opacity-50 cursor-not-allowed"}`}
                       onClick={handleCreateFolder}
                     >
                       Create
@@ -94,4 +94,4 @@ const FolderCreator = ({ parentFolderId, onCreateComplete }) => {
   );
 };
 
-export default FolderCreator;
+export default CreateFolderDialog;
