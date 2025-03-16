@@ -10,12 +10,35 @@ const useDownloadFile = () => {
             const response = await fileStoreApi.get(ENDPOINTS.DOWNLOAD_FILE(fileId));
             const { downloadUrl } = response.data;
 
-            const fileResponse = await fetch(downloadUrl);
+            const fileResponse = await fetch(downloadUrl, {
+                redirect: "follow"
+            });
             if (!fileResponse.ok) {
                 throw new Error('Failed to fetch file');
             }
 
-            const blob = await fileResponse.blob();
+            const contentLength = fileResponse.headers.get("Content-Length");
+            const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
+
+            const reader = fileResponse.body?.getReader();
+            const chunks = [];
+            let receivedLength = 0;
+
+            while (true) {
+                const {done, value} = await reader.read();
+
+                if (done) {
+                    break;
+                }
+
+                chunks.push(value);
+                receivedLength += value.length;
+
+                const downloadProgress = totalSize ? Math.round((receivedLength / totalSize) * 100) : 0;
+                window.showNotification(crypto.randomUUID(), `File Download Progress : ${downloadProgress}%`, NOTIFICATION_TYPE.INFO);
+            }
+
+            const blob = new Blob(chunks);
             const blobUrl = window.URL.createObjectURL(blob);
 
             const downloadLink = document.createElement('a');
@@ -31,6 +54,7 @@ const useDownloadFile = () => {
         }
         catch (error) {
             console.error('Failed to download file: ', error);
+            window.showNotification(crypto.randomUUID(), 'File Download Failed', NOTIFICATION_TYPE.ERROR);
         }
     };
 

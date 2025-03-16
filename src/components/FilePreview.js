@@ -36,7 +36,7 @@ const FilePreview = ({ fileId, fileName, fileType, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center p-4"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center p-4 z-50"
       onClick={onClose}
     >
       <div

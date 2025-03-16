@@ -3,7 +3,7 @@ import FilePreview from "./FilePreview";
 import { FILE_TYPES, getFileType } from "../utils/fileTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faImage } from "@fortawesome/free-solid-svg-icons";
-import FileCardActions from "./FileCardActions"; // Import the new component
+import FileCardActions from "./FileCardActions";
 
 const FileCard = ({ file }) => {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
