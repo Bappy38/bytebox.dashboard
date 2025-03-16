@@ -8,6 +8,7 @@ import FileUploader from "./FileUploader";
 import { useDispatch, useSelector } from "react-redux";
 import { addFile, addFolder } from "../store/fileExplorerSlice";
 import CreateFolderDialog from "./CreateFolderDialog";
+import EmptyFolderPlaceholder from "./EmptyFolderPlaceholder";
 
 
 const FileExplorer = () => {
@@ -53,8 +54,14 @@ const FileExplorer = () => {
             </div>
 
             <div className="p-6">
-                <FolderContainer folders = {data.subFolders}/>
-                <FileContainer files = {data.files}/>
+                {data.files.length === 0 && data.subFolders.length === 0 ? (
+                    <EmptyFolderPlaceholder/>
+                ) : (
+                    <>
+                        <FolderContainer folders = {data.subFolders}/>
+                        <FileContainer files = {data.files}/>
+                    </>
+                )}
             </div>
         </div>
     );
